@@ -2,11 +2,7 @@ import os
 import discord
 from discord.ext import commands
 
-# Token ONLY from Render Environment
 TOKEN = os.environ.get("TOKEN")
-
-if TOKEN is None:
-    raise RuntimeError("TOKEN environment variable not found")
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -15,14 +11,28 @@ bot = commands.Bot(command_prefix="!", intents=intents)
 
 @bot.event
 async def on_ready():
-    print(f"✅ Logged in as {bot.user}")
+    print("✈️ AirBoss DEMO is online")
 
 @bot.command()
 async def ping(ctx):
-    await ctx.send("🏓 Pong! Bot is alive ✅")
+    await ctx.send("🏓 AirBoss awake hai!")
 
 @bot.command()
-async def status(ctx):
-    await ctx.send("✈️ AirBoss AM4 bot running smoothly")
+async def about(ctx):
+    await ctx.send(
+        "✈️ **AirBoss Project**\n"
+        "AM4 airline tracking & route assistant\n"
+        "🚧 Demo version (under development)"
+    )
+
+@bot.command()
+async def airport(ctx, code):
+    demo_airports = {
+        "DEL": "Delhi – Market 95 – Hub Cost 500k",
+        "DXB": "Dubai – Market 90 – Hub Cost 700k",
+        "JFK": "New York – Market 100 – Hub Cost 1.2M"
+    }
+    code = code.upper()
+    await ctx.send(demo_airports.get(code, "❌ Airport not in demo database"))
 
 bot.run(TOKEN)
