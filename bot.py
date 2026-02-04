@@ -14,6 +14,10 @@ async def on_ready():
 
 @bot.command()
 async def ping(ctx):
-    await ctx.send("Pong 🏓 Airboss alive!")
+    await ctx.send("Pong 🏓 Airboss is alive!")
 
-bot.run(os.getenv("DISCORD_TOKEN"))
+TOKEN = os.getenv("DISCORD_TOKEN")
+
+print("TOKEN FOUND:", TOKEN is not None)
+
+bot.run(TOKEN)
